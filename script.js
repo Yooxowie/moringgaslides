@@ -497,18 +497,14 @@ document.addEventListener('DOMContentLoaded', () => {
         // 4. User Name — centered
         ctx.textAlign = 'center';
         ctx.fillStyle = t.text;
-        ctx.font = "bold 76px 'Playfair Display', Georgia, serif";
-        ctx.fillText(name, 525, 290);
+        ctx.font = "bold 82px 'Playfair Display', Georgia, serif";
+        ctx.fillText(name, 525, 300);
 
-        // 5. Accent divider line under name
-        ctx.fillStyle = t.accent;
-        ctx.fillRect(525 - 60, 320, 120, 6);
-
-        // 6. Group pill badge — centered below divider
+        // 5. Group pill badge — centered below name
         const pillW = 380;
         const pillH = 56;
         const pillX = 525 - pillW / 2;
-        const pillY = 385;
+        const pillY = 370;
 
         ctx.fillStyle = t.pillBg;
         ctx.beginPath();
