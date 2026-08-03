@@ -1333,47 +1333,77 @@ body.theme-cream .generator-preview-panel {
 }
 
 .nametag-card {
-    width: 330px;
-    height: 210px;
-    border-radius: 12px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    width: 340px;
+    height: 215px;
+    border-radius: 14px;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
     position: relative;
-    padding: 2.2rem 1.5rem 1.5rem;
     overflow: hidden;
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: row;
+    padding: 0;
     transition: all 0.3s ease;
 }
 
-/* Lanyard Slot */
-.badge-slot {
-    position: absolute;
-    top: 8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 35px;
-    height: 7px;
-    border-radius: 10px;
-    z-index: 10;
-}
-
-.nametag-inner {
+/* Lanyard Slot / Badge Slot in Side Strip */
+.nametag-side-strip {
+    width: 55px;
     height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-between;
-    z-index: 5;
+    padding: 1.25rem 0 1rem;
     position: relative;
+    z-index: 10;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nametag-side-strip .badge-slot {
+    position: relative;
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 30px;
+    height: 6px;
+    border-radius: 4px;
+}
+
+.side-strip-text {
+    writing-mode: vertical-rl;
+    text-transform: uppercase;
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 0.4em;
+    transform: rotate(180deg);
+}
+
+.side-strip-icon {
+    font-size: 1rem;
+}
+
+/* Right Main Area styling */
+.nametag-main-area {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1.5rem 1.8rem;
+    position: relative;
+    z-index: 5;
 }
 
 .nametag-main {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    margin: auto 0;
-    gap: 0.3rem;
+    margin-bottom: 0.6rem;
+    gap: 0.2rem;
+    z-index: 10;
+    position: relative;
 }
 
 .nametag-user-name {
@@ -1382,60 +1412,46 @@ body.theme-cream .generator-preview-panel {
     font-weight: 800;
     letter-spacing: -0.01em;
     line-height: 1.1;
-    text-align: center;
+    text-align: left;
 }
 
 .nametag-badge-divider {
     width: 50px;
-    height: 3px;
+    height: 4px;
     border-radius: 2px;
-    margin: 0.2rem 0;
-    transition: background-color 0.3s ease;
-}
-
-.nametag-user-role {
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    text-align: center;
+    margin-top: 0.3rem;
 }
 
 .nametag-footer {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     width: 100%;
+    z-index: 10;
+    position: relative;
 }
 
 .nametag-group-badge {
-    padding: 0.3rem 0.9rem;
+    padding: 0.35rem 0.9rem;
     border-radius: 30px;
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
-    transition: all 0.3s ease;
 }
 
 .nametag-svg-leaf {
     position: absolute;
-    width: 110px;
+    width: 130px;
     height: auto;
     pointer-events: none;
     z-index: 1;
     transition: color 0.3s ease, opacity 0.3s ease;
 }
 
-.leaf-left {
-    bottom: -20px;
-    left: -20px;
-    transform: rotate(35deg);
-}
-
 .leaf-right {
-    top: -20px;
+    bottom: -20px;
     right: -20px;
-    transform: rotate(-145deg);
+    transform: rotate(-35deg);
 }
 
 /* Template Themes */
@@ -1445,18 +1461,20 @@ body.theme-cream .generator-preview-panel {
     border: 3px solid #d4af37;
     color: #f6f8f5;
 }
-.nametag-card[data-theme="forest"] .badge-slot {
-    background: rgba(255, 255, 255, 0.15);
+.nametag-card[data-theme="forest"] .nametag-side-strip {
+    background-color: #d4af37;
+    color: #0b1a13;
+    border-right-color: rgba(11, 26, 19, 0.15);
+}
+.nametag-card[data-theme="forest"] .nametag-side-strip .badge-slot {
+    background: rgba(11, 26, 19, 0.15);
 }
 .nametag-card[data-theme="forest"] .nametag-badge-divider {
-    background: #d4af37;
-}
-.nametag-card[data-theme="forest"] .nametag-user-role {
-    color: #d4af37;
+    background-color: #d4af37;
 }
 .nametag-card[data-theme="forest"] .nametag-group-badge {
     background: rgba(212, 175, 55, 0.08);
-    border: 1px solid rgba(212, 175, 55, 0.18);
+    border: 1px solid rgba(212, 175, 55, 0.2);
     color: #d4af37;
 }
 .nametag-card[data-theme="forest"] .nametag-svg-leaf {
@@ -1471,14 +1489,16 @@ body.theme-cream .generator-preview-panel {
     color: #1b3327;
     box-shadow: 0 15px 35px rgba(27, 51, 39, 0.1);
 }
-.nametag-card[data-theme="cream"] .badge-slot {
-    background: rgba(0, 0, 0, 0.1);
+.nametag-card[data-theme="cream"] .nametag-side-strip {
+    background-color: #1b3327;
+    color: #faf8f5;
+    border-right-color: rgba(250, 248, 245, 0.15);
+}
+.nametag-card[data-theme="cream"] .nametag-side-strip .badge-slot {
+    background: rgba(250, 248, 245, 0.2);
 }
 .nametag-card[data-theme="cream"] .nametag-badge-divider {
-    background: #1b3327;
-}
-.nametag-card[data-theme="cream"] .nametag-user-role {
-    color: #5a7364;
+    background-color: #1b3327;
 }
 .nametag-card[data-theme="cream"] .nametag-group-badge {
     background: rgba(27, 51, 39, 0.05);
@@ -1496,15 +1516,16 @@ body.theme-cream .generator-preview-panel {
     border: 3px solid #ffffff;
     color: #ffffff;
 }
-.nametag-card[data-theme="sage"] .badge-slot {
-    background: rgba(255, 255, 255, 0.25);
+.nametag-card[data-theme="sage"] .nametag-side-strip {
+    background-color: #ffffff;
+    color: #8fa89b;
+    border-right-color: rgba(143, 168, 155, 0.2);
+}
+.nametag-card[data-theme="sage"] .nametag-side-strip .badge-slot {
+    background: rgba(143, 168, 155, 0.2);
 }
 .nametag-card[data-theme="sage"] .nametag-badge-divider {
-    background: #ffffff;
-}
-.nametag-card[data-theme="sage"] .nametag-user-role {
-    color: #ffffff;
-    opacity: 0.95;
+    background-color: #ffffff;
 }
 .nametag-card[data-theme="sage"] .nametag-group-badge {
     background: rgba(255, 255, 255, 0.12);

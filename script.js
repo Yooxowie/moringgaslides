@@ -480,55 +480,89 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const activeTheme = themes[template];
 
-        // 1. Fill Background
+        // === DRAW BADGE PARTS ===
+
+        // 1. Fill Main Area Background
         ctx.fillStyle = activeTheme.bg;
         ctx.fillRect(0, 0, 1050, 660);
 
-        // 2. Draw Decorative Moringa Leaf watermarks
-        drawCanvasMoringaLeaf(ctx, -50, 710, 500, -Math.PI / 6, activeTheme.leafColor, activeTheme.leafOpacity);
-        drawCanvasMoringaLeaf(ctx, 1100, -50, 500, Math.PI * 0.8, activeTheme.leafColor, activeTheme.leafOpacity);
+        // 2. Draw Decorative Moringa Leaf watermark (large in bottom right corner of main area)
+        drawCanvasMoringaLeaf(ctx, 950, 520, 480, Math.PI * 0.9, activeTheme.leafColor, activeTheme.leafOpacity * 1.5);
 
-        // 3. Draw Thick Styled Border
+        // 3. Draw Left Side Strip
+        ctx.fillStyle = activeTheme.border; // strip gets border color (gold/green/white)
+        ctx.fillRect(0, 0, 180, 660);
+
+        // 4. Draw lanyard clip slot inside the side strip
+        ctx.fillStyle = activeTheme.bg; // lanyard slot gets main bg color
+        ctx.beginPath();
+        drawCanvasRoundedRect(ctx, 90 - 45, 30, 90, 18, 9);
+        ctx.fill();
+
+        // 5. Draw Side Strip Icon (Leaf) at the bottom
+        ctx.fillStyle = activeTheme.bg;
+        ctx.font = "38px 'Plus Jakarta Sans', system-ui, sans-serif";
+        ctx.textAlign = 'center';
+        ctx.fillText("🌿", 90, 615);
+
+        // 6. Draw Side Strip Text (Rotated vertical text)
+        ctx.save();
+        ctx.translate(90, 320);
+        ctx.rotate(-Math.PI / 2);
+        ctx.fillStyle = activeTheme.bg;
+        ctx.font = "bold 26px 'Plus Jakarta Sans', system-ui, sans-serif";
+        ctx.textAlign = 'center';
+        ctx.fillText("M  O  R  I  N  G  A", 0, 10);
+        ctx.restore();
+
+        // 7. Draw Divider Line separating side strip and main area
+        ctx.strokeStyle = activeTheme.border;
+        ctx.lineWidth = 12;
+        ctx.beginPath();
+        ctx.moveTo(180, 0);
+        ctx.lineTo(180, 660);
+        ctx.stroke();
+
+        // 8. Draw Border around the entire card
         ctx.strokeStyle = activeTheme.border;
         ctx.lineWidth = 12;
         ctx.strokeRect(6, 6, 1038, 648);
 
-        // 4. Draw Lanyard Slot Card Clip Hole
-        ctx.fillStyle = template === 'cream' ? 'rgba(0, 0, 0, 0.08)' : 'rgba(255, 255, 255, 0.12)';
-        ctx.beginPath();
-        drawCanvasRoundedRect(ctx, 1050 / 2 - 60, 24, 120, 20, 10);
-        ctx.fill();
-
-        // 5. Draw User Name (Centered vertically and horizontally)
-        ctx.textAlign = 'center';
+        // 9. Draw User Name (Left aligned in main area)
+        ctx.textAlign = 'left';
         ctx.fillStyle = activeTheme.text;
-        ctx.font = "bold 78px 'Playfair Display', Georgia, serif";
-        ctx.fillText(name, 1050 / 2, 340);
+        ctx.font = "bold 72px 'Playfair Display', Georgia, serif";
+        ctx.fillText(name, 240, 290);
 
-        // 6. Draw Footer Affiliation centered as a pill badge
-        const pillWidth = 400;
-        const pillHeight = 60;
-        const pillX = 1050 / 2 - pillWidth / 2;
-        const pillY = 460;
+        // 10. Draw Divider Accent line under name
+        ctx.fillStyle = activeTheme.border;
+        ctx.fillRect(240, 325, 120, 8);
 
-        // Fill pill background
+        // 11. Draw Footer Group Pill Badge
+        const pillWidth = 420;
+        const pillHeight = 65;
+        const pillX = 240;
+        const pillY = 410;
+
+        // Pill background
         ctx.fillStyle = template === 'forest' ? 'rgba(212, 175, 55, 0.08)' : (template === 'cream' ? 'rgba(27, 51, 39, 0.05)' : 'rgba(255, 255, 255, 0.12)');
         ctx.beginPath();
-        drawCanvasRoundedRect(ctx, pillX, pillY, pillWidth, pillHeight, 30);
+        drawCanvasRoundedRect(ctx, pillX, pillY, pillWidth, pillHeight, 32);
         ctx.fill();
 
-        // Stroke pill border
+        // Pill border
         ctx.strokeStyle = activeTheme.border;
         ctx.lineWidth = 2.5;
         ctx.beginPath();
-        drawCanvasRoundedRect(ctx, pillX, pillY, pillWidth, pillHeight, 30);
+        drawCanvasRoundedRect(ctx, pillX, pillY, pillWidth, pillHeight, 32);
         ctx.stroke();
 
-        // Draw Affiliation Text inside pill
-        ctx.fillStyle = activeTheme.role; // Accent color
+        // Group text inside pill
+        ctx.textAlign = 'center';
+        ctx.fillStyle = activeTheme.text;
         ctx.font = "bold 22px 'Plus Jakarta Sans', system-ui, sans-serif";
         ctx.letterSpacing = "1.5px";
-        ctx.fillText(group.toUpperCase(), 1050 / 2, pillY + 38);
+        ctx.fillText(group.toUpperCase(), pillX + pillWidth / 2, pillY + 41);
 
         // Return canvas
         callback(canvas);
