@@ -1338,7 +1338,7 @@ body.theme-cream .generator-preview-panel {
     border-radius: 12px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
     position: relative;
-    padding: 1rem;
+    padding: 2.2rem 1.5rem 1.5rem;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -1367,77 +1367,75 @@ body.theme-cream .generator-preview-panel {
     position: relative;
 }
 
-.nametag-header {
+.nametag-main {
     display: flex;
     flex-direction: column;
-    gap: 0.15rem;
-}
-
-.nametag-presentation-badge {
-    font-size: 0.55rem;
-    font-weight: 800;
-    letter-spacing: 0.15em;
-}
-
-.nametag-presentation-title {
-    font-family: var(--font-serif);
-    font-size: 0.72rem;
-    line-height: 1.2;
-    font-weight: 700;
-}
-
-.nametag-divider {
-    height: 1px;
-    width: 100%;
-    margin: 0.4rem 0;
-}
-
-.nametag-main {
-    text-align: center;
+    align-items: center;
+    justify-content: center;
     margin: auto 0;
+    gap: 0.3rem;
 }
 
 .nametag-user-name {
     font-family: var(--font-serif);
-    font-size: 1.8rem;
+    font-size: 2.1rem;
     font-weight: 800;
     letter-spacing: -0.01em;
     line-height: 1.1;
-    margin-bottom: 0.2rem;
+    text-align: center;
+}
+
+.nametag-badge-divider {
+    width: 50px;
+    height: 3px;
+    border-radius: 2px;
+    margin: 0.2rem 0;
+    transition: background-color 0.3s ease;
 }
 
 .nametag-user-role {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
+    text-align: center;
 }
 
 .nametag-footer {
     display: flex;
-    justify-content: space-between;
-    font-size: 0.65rem;
-    font-weight: 600;
+    justify-content: center;
+    width: 100%;
 }
 
-.nametag-watermark {
+.nametag-group-badge {
+    padding: 0.3rem 0.9rem;
+    border-radius: 30px;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.nametag-svg-leaf {
     position: absolute;
-    font-size: 5rem;
-    opacity: 0.08;
+    width: 110px;
+    height: auto;
     pointer-events: none;
     z-index: 1;
+    transition: color 0.3s ease, opacity 0.3s ease;
 }
 
-.watermark-left {
-    bottom: -15px;
-    left: -15px;
-    transform: rotate(-15deg);
+.leaf-left {
+    bottom: -20px;
+    left: -20px;
+    transform: rotate(35deg);
 }
 
-.watermark-right {
-    top: -15px;
-    right: -15px;
-    transform: rotate(45deg);
+.leaf-right {
+    top: -20px;
+    right: -20px;
+    transform: rotate(-145deg);
 }
 
 /* Template Themes */
@@ -1450,18 +1448,20 @@ body.theme-cream .generator-preview-panel {
 .nametag-card[data-theme="forest"] .badge-slot {
     background: rgba(255, 255, 255, 0.15);
 }
-.nametag-card[data-theme="forest"] .nametag-presentation-badge {
-    color: #d4af37;
-}
-.nametag-card[data-theme="forest"] .nametag-divider {
+.nametag-card[data-theme="forest"] .nametag-badge-divider {
     background: #d4af37;
-    opacity: 0.4;
 }
 .nametag-card[data-theme="forest"] .nametag-user-role {
     color: #d4af37;
 }
-.nametag-card[data-theme="forest"] .nametag-footer {
-    color: #9cbfa5;
+.nametag-card[data-theme="forest"] .nametag-group-badge {
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.18);
+    color: #d4af37;
+}
+.nametag-card[data-theme="forest"] .nametag-svg-leaf {
+    color: #d4af37;
+    opacity: 0.08;
 }
 
 /* 2. Warm Meadow Theme */
@@ -1474,18 +1474,20 @@ body.theme-cream .generator-preview-panel {
 .nametag-card[data-theme="cream"] .badge-slot {
     background: rgba(0, 0, 0, 0.1);
 }
-.nametag-card[data-theme="cream"] .nametag-presentation-badge {
-    color: #c99318;
-}
-.nametag-card[data-theme="cream"] .nametag-divider {
+.nametag-card[data-theme="cream"] .nametag-badge-divider {
     background: #1b3327;
-    opacity: 0.3;
 }
 .nametag-card[data-theme="cream"] .nametag-user-role {
     color: #5a7364;
 }
-.nametag-card[data-theme="cream"] .nametag-footer {
-    color: #5a7364;
+.nametag-card[data-theme="cream"] .nametag-group-badge {
+    background: rgba(27, 51, 39, 0.05);
+    border: 1px solid rgba(27, 51, 39, 0.12);
+    color: #1b3327;
+}
+.nametag-card[data-theme="cream"] .nametag-svg-leaf {
+    color: #1b3327;
+    opacity: 0.06;
 }
 
 /* 3. Sage Leaf Theme */
@@ -1497,21 +1499,21 @@ body.theme-cream .generator-preview-panel {
 .nametag-card[data-theme="sage"] .badge-slot {
     background: rgba(255, 255, 255, 0.25);
 }
-.nametag-card[data-theme="sage"] .nametag-presentation-badge {
-    color: #ffffff;
-    opacity: 0.9;
-}
-.nametag-card[data-theme="sage"] .nametag-divider {
+.nametag-card[data-theme="sage"] .nametag-badge-divider {
     background: #ffffff;
-    opacity: 0.5;
 }
 .nametag-card[data-theme="sage"] .nametag-user-role {
     color: #ffffff;
     opacity: 0.95;
 }
-.nametag-card[data-theme="sage"] .nametag-footer {
+.nametag-card[data-theme="sage"] .nametag-group-badge {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.25);
     color: #ffffff;
-    opacity: 0.8;
+}
+.nametag-card[data-theme="sage"] .nametag-svg-leaf {
+    color: #ffffff;
+    opacity: 0.15;
 }
 
 /* Responsive adjustments for Modal Grid */

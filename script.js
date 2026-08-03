@@ -332,13 +332,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Form Inputs
     const tagNameInput = document.getElementById('tag-name');
-    const tagRoleInput = document.getElementById('tag-role');
     const tagGroupInput = document.getElementById('tag-group');
     const tagTemplateSelect = document.getElementById('tag-template');
     
     // Preview Elements
     const previewName = document.getElementById('preview-name');
-    const previewRole = document.getElementById('preview-role');
     const previewGroup = document.getElementById('preview-group');
     const nametagPreviewCard = document.getElementById('nametag-preview-card');
     
@@ -371,13 +369,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // Live Preview Update
     function updateLivePreview() {
         previewName.textContent = tagNameInput.value || 'John Doe';
-        previewRole.textContent = tagRoleInput.value || 'Presenter';
         previewGroup.textContent = tagGroupInput.value || 'Group 2 BSHM3-09';
         nametagPreviewCard.setAttribute('data-theme', tagTemplateSelect.value);
     }
 
     tagNameInput.addEventListener('input', updateLivePreview);
-    tagRoleInput.addEventListener('input', updateLivePreview);
     tagGroupInput.addEventListener('input', updateLivePreview);
     tagTemplateSelect.addEventListener('change', updateLivePreview);
 
@@ -448,7 +444,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const ctx = canvas.getContext('2d');
 
         const name = tagNameInput.value || 'John Doe';
-        const role = tagRoleInput.value || 'Presenter';
         const group = tagGroupInput.value || 'Group 2 BSHM3-09';
         const template = tagTemplateSelect.value;
 
@@ -504,49 +499,36 @@ document.addEventListener('DOMContentLoaded', () => {
         drawCanvasRoundedRect(ctx, 1050 / 2 - 60, 24, 120, 20, 10);
         ctx.fill();
 
-        // 5. Draw Header Presentation Text
+        // 5. Draw User Name (Centered vertically and horizontally)
         ctx.textAlign = 'center';
-        
-        ctx.fillStyle = activeTheme.role; // Use gold/accent color
-        ctx.font = "bold 20px 'Plus Jakarta Sans', system-ui, sans-serif";
-        ctx.letterSpacing = "3px";
-        ctx.fillText("TITLE PROPOSAL", 1050 / 2, 95);
-
         ctx.fillStyle = activeTheme.text;
-        ctx.font = "italic bold 25px 'Playfair Display', Georgia, serif";
-        ctx.letterSpacing = "normal";
-        ctx.fillText("Assessing Malunggay Leaf Extract as a Cooking Oil Replacement", 1050 / 2, 140);
+        ctx.font = "bold 78px 'Playfair Display', Georgia, serif";
+        ctx.fillText(name, 1050 / 2, 340);
 
-        // 6. Draw Divider Line
-        ctx.strokeStyle = activeTheme.border;
-        ctx.lineWidth = 2;
-        ctx.globalAlpha = template === 'cream' ? 0.3 : 0.4;
+        // 6. Draw Footer Affiliation centered as a pill badge
+        const pillWidth = 400;
+        const pillHeight = 60;
+        const pillX = 1050 / 2 - pillWidth / 2;
+        const pillY = 460;
+
+        // Fill pill background
+        ctx.fillStyle = template === 'forest' ? 'rgba(212, 175, 55, 0.08)' : (template === 'cream' ? 'rgba(27, 51, 39, 0.05)' : 'rgba(255, 255, 255, 0.12)');
         ctx.beginPath();
-        ctx.moveTo(150, 185);
-        ctx.lineTo(900, 185);
+        drawCanvasRoundedRect(ctx, pillX, pillY, pillWidth, pillHeight, 30);
+        ctx.fill();
+
+        // Stroke pill border
+        ctx.strokeStyle = activeTheme.border;
+        ctx.lineWidth = 2.5;
+        ctx.beginPath();
+        drawCanvasRoundedRect(ctx, pillX, pillY, pillWidth, pillHeight, 30);
         ctx.stroke();
-        ctx.globalAlpha = 1.0;
 
-        // 7. Draw User Name
-        ctx.font = "bold 68px 'Playfair Display', Georgia, serif";
-        ctx.fillText(name, 1050 / 2, 335);
-
-        // 8. Draw User Role
-        ctx.fillStyle = activeTheme.role;
-        ctx.font = "bold 25px 'Plus Jakarta Sans', system-ui, sans-serif";
-        ctx.letterSpacing = "4px";
-        ctx.fillText(role.toUpperCase(), 1050 / 2, 400);
-
-        // 9. Draw Footer Affiliation & Date
-        ctx.fillStyle = activeTheme.footer;
-        ctx.font = "600 20px 'Plus Jakarta Sans', system-ui, sans-serif";
-        ctx.letterSpacing = "normal";
-        
-        ctx.textAlign = 'left';
-        ctx.fillText(group, 70, 580);
-        
-        ctx.textAlign = 'right';
-        ctx.fillText("August 2026", 980, 580);
+        // Draw Affiliation Text inside pill
+        ctx.fillStyle = activeTheme.role; // Accent color
+        ctx.font = "bold 22px 'Plus Jakarta Sans', system-ui, sans-serif";
+        ctx.letterSpacing = "1.5px";
+        ctx.fillText(group.toUpperCase(), 1050 / 2, pillY + 38);
 
         // Return canvas
         callback(canvas);
