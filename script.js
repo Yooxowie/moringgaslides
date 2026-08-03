@@ -610,4 +610,203 @@ document.addEventListener('DOMContentLoaded', () => {
     // === INITIALIZATION ===
     // Update notes and active visibility for first slide on load
     updateSlideVisibility();
+
+    // === GAME LOGIC ===
+    const openGameBtn = document.getElementById('open-game-btn');
+    const closeGameBtn = document.getElementById('close-game-btn');
+    const gameModal = document.getElementById('game-modal');
+    const gameStartBtn = document.getElementById('game-start-btn');
+    const gameRestartBtn = document.getElementById('game-restart-btn');
+    const gameOverScreen = document.getElementById('game-over-screen');
+    const gameStartScreen = document.getElementById('game-start-screen');
+    const gameScoreEl = document.getElementById('game-score');
+    const gameLivesEl = document.getElementById('game-lives');
+    const gameTimerEl = document.getElementById('game-timer');
+    const canvas = document.getElementById('game-canvas');
+    const ctx = canvas.getContext('2d');
+    // Ensure canvas dimensions match CSS size
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    const gameState = {
+        score: 0,
+        lives: 3,
+        timeRemaining: 60,
+        running: false,
+        objects: [], // falling items
+        player: { x: canvas.width / 2, y: canvas.height - 60, radius: 30 },
+        lastSpawn: 0,
+        spawnInterval: 1000, // ms
+        animationId: null,
+        timerId: null
+    };
+
+    // Load sprites (paths relative to project root)
+    const malunggayImg = new Image();
+    malunggayImg.src = 'assets/malunggay_sprite_1785748086521.jpg';
+    const pandesalImg = new Image();
+    pandesalImg.src = 'assets/pandesal_sprite_1785748014786.jpg';
+
+    // Utility: random integer in [min, max]
+    const randInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+
+    function openGameModalHandler() {
+        closeSidebar(); // reuse existing function
+        gameModal.setAttribute('aria-hidden', 'false');
+        gameModal.classList.add('show');
+    }
+
+    function closeGameModalHandler() {
+        gameModal.setAttribute('aria-hidden', 'true');
+        gameModal.classList.remove('show');
+        // ensure any running game is halted
+        endGame();
+    }
+
+    openGameBtn.addEventListener('click', openGameModalHandler);
+    closeGameBtn.addEventListener('click', closeGameModalHandler);
+
+    // Player drag (horizontal only for simplicity)
+    let dragging = false;
+    function onPointerDown(e) {
+        const rect = canvas.getBoundingClientRect();
+        const dx = e.clientX - rect.left;
+        const dy = e.clientY - rect.top;
+        const dist = Math.hypot(dx - gameState.player.x, dy - gameState.player.y);
+        if (dist <= gameState.player.radius + 20) { // give some leeway
+            dragging = true;
+        }
+    }
+    function onPointerMove(e) {
+        if (!dragging) return;
+        const rect = canvas.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        // constrain within canvas width
+        gameState.player.x = Math.min(canvas.width - gameState.player.radius, Math.max(gameState.player.radius, x));
+    }
+    function onPointerUp() { dragging = false; }
+    canvas.addEventListener('pointerdown', onPointerDown);
+    canvas.addEventListener('pointermove', onPointerMove);
+    canvas.addEventListener('pointerup', onPointerUp);
+    canvas.addEventListener('pointerleave', onPointerUp);
+
+    function spawnObject() {
+        const isMalunggay = Math.random() < 0.7; // 70% chance good
+        const img = isMalunggay ? malunggayImg : pandesalImg;
+        const size = randInt(40, 60);
+        const x = randInt(size / 2, canvas.width - size / 2);
+        const y = -size;
+        const speed = randInt(2, 4) + (isMalunggay ? 0 : 1); // pandesal falls slightly faster
+        gameState.objects.push({ img, x, y, size, speed, isMalunggay });
+    }
+
+    function updateObjects() {
+        gameState.objects.forEach(obj => {
+            obj.y += obj.speed;
+        });
+        // Remove off‑screen items
+        gameState.objects = gameState.objects.filter(obj => obj.y - obj.size < canvas.height);
+    }
+
+    function drawObjects() {
+        gameState.objects.forEach(obj => {
+            ctx.drawImage(obj.img, obj.x - obj.size / 2, obj.y - obj.size / 2, obj.size, obj.size);
+        });
+    }
+
+    function checkCollisions() {
+        const player = gameState.player;
+        gameState.objects = gameState.objects.filter(obj => {
+            const dx = obj.x - player.x;
+            const dy = obj.y - player.y;
+            const distance = Math.hypot(dx, dy);
+            if (distance < player.radius + obj.size / 2) {
+                // collision!
+                if (obj.isMalunggay) {
+                    gameState.score += 10;
+                } else {
+                    gameState.lives -= 1;
+                }
+                return false; // remove collided object
+            }
+            return true; // keep
+        });
+    }
+
+    function updateHUD() {
+        gameScoreEl.textContent = gameState.score;
+        gameLivesEl.textContent = '❤️'.repeat(gameState.lives);
+        gameTimerEl.textContent = gameState.timeRemaining;
+    }
+
+    function gameLoop(timestamp) {
+        if (!gameState.running) return;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // spawn based on interval
+        if (timestamp - gameState.lastSpawn > gameState.spawnInterval) {
+            spawnObject();
+            gameState.lastSpawn = timestamp;
+        }
+        updateObjects();
+        checkCollisions();
+        // draw player (simple circle with gradient)
+        const grad = ctx.createRadialGradient(gameState.player.x, gameState.player.y, 0, gameState.player.x, gameState.player.y, gameState.player.radius);
+        grad.addColorStop(0, '#fff');
+        grad.addColorStop(1, '#4caf50');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.arc(gameState.player.x, gameState.player.y, gameState.player.radius, 0, Math.PI * 2);
+        ctx.fill();
+        drawObjects();
+        updateHUD();
+        // check end conditions
+        if (gameState.lives <= 0 || gameState.timeRemaining <= 0) {
+            endGame();
+            return;
+        }
+        gameState.animationId = requestAnimationFrame(gameLoop);
+    }
+
+    function startGame() {
+        // reset state
+        gameState.score = 0;
+        gameState.lives = 3;
+        gameState.timeRemaining = 60;
+        gameState.objects = [];
+        gameState.player.x = canvas.width / 2;
+        gameState.running = true;
+        // UI switches
+        gameStartScreen.classList.add('hidden');
+        gameOverScreen.classList.add('hidden');
+        // start countdown timer
+        gameState.timerId = setInterval(() => {
+            gameState.timeRemaining -= 1;
+            if (gameState.timeRemaining <= 0) clearInterval(gameState.timerId);
+        }, 1000);
+        // launch loop
+        gameState.lastSpawn = 0;
+        gameState.animationId = requestAnimationFrame(gameLoop);
+    }
+
+    function endGame() {
+        gameState.running = false;
+        cancelAnimationFrame(gameState.animationId);
+        clearInterval(gameState.timerId);
+        // show final score
+        document.getElementById('game-final-score').textContent = gameState.score;
+        gameOverScreen.classList.remove('hidden');
+    }
+
+    // Button handlers
+    gameStartBtn.addEventListener('click', startGame);
+    gameRestartBtn.addEventListener('click', startGame);
+
+    // Clean up when modal is closed
+    closeGameBtn.addEventListener('click', closeGameModalHandler);
+
+    // Ensure game stops if user navigates away
+    window.addEventListener('beforeunload', () => {
+        if (gameState.running) endGame();
+    });
+
 });

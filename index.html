@@ -49,6 +49,10 @@
                     <span class="btn-icon">🪪</span>
                     <span class="btn-text">Generate Nametag</span>
                 </button>
+                <button class="nametag-trigger-btn game-trigger-btn" id="open-game-btn">
+                    <span class="btn-icon">🎮</span>
+                    <span class="btn-text">Play Game</span>
+                </button>
             </div>
         </nav>
 
@@ -386,6 +390,33 @@
 
     <!-- Hidden Print Area -->
     <div id="nametag-print-area"></div>
+
+    <!-- Malunggay Catcher Game Modal -->
+    <div class="modal-overlay" id="game-modal" aria-hidden="true">
+        <div class="game-wrapper">
+            <button class="icon-btn close-btn game-close-btn" id="close-game-btn" aria-label="Close game">&times;</button>
+            <!-- Game HUD -->
+            <div class="game-hud">
+                <div class="hud-item"><span class="hud-label">Score</span><span class="hud-value" id="game-score">0</span></div>
+                <div class="hud-item"><span class="hud-label">Lives</span><span class="hud-value" id="game-lives">❤️❤️❤️</span></div>
+                <div class="hud-item"><span class="hud-label">Time</span><span class="hud-value" id="game-timer">60</span></div>
+            </div>
+            <!-- Game Canvas -->
+            <canvas id="game-canvas"></canvas>
+            <!-- Start Screen -->
+            <div class="game-screen" id="game-start-screen">
+                <h2>🌿 Malunggay Catcher</h2>
+                <p>Catch the falling <strong>malunggay leaves</strong> to score points!<br>Avoid the <strong>pandesal</strong> — it will cost you a life!</p>
+                <button class="action-btn primary-action game-start-btn" id="game-start-btn">Start Game</button>
+            </div>
+            <!-- Game Over Screen -->
+            <div class="game-screen hidden" id="game-over-screen">
+                <h2>Game Over!</h2>
+                <p>Your Score: <strong id="game-final-score">0</strong></p>
+                <button class="action-btn primary-action game-start-btn" id="game-restart-btn">Play Again</button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
