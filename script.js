@@ -340,6 +340,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const previewGroup = document.getElementById('preview-group');
     const nametagPreviewCard = document.getElementById('nametag-preview-card');
     
+    // Range Sliders
+    const nameFontSlider = document.getElementById('name-font-size');
+    const groupFontSlider = document.getElementById('group-font-size');
+    const nameYSlider = document.getElementById('name-y-pos');
+    const groupYSlider = document.getElementById('group-y-pos');
+    const nameSizeVal = document.getElementById('name-size-val');
+    const groupSizeVal = document.getElementById('group-size-val');
+    const nameYVal = document.getElementById('name-y-val');
+    const groupYVal = document.getElementById('group-y-val');
+
     // Action Buttons
     const btnPrintTag = document.getElementById('btn-print-tag');
     const btnPngTag = document.getElementById('btn-png-tag');
@@ -358,7 +368,6 @@ document.addEventListener('DOMContentLoaded', () => {
         nametagModal.setAttribute('aria-hidden', 'true');
     });
 
-    // Close on overlay click
     nametagModal.addEventListener('click', (e) => {
         if (e.target === nametagModal) {
             nametagModal.classList.remove('show');
@@ -371,11 +380,76 @@ document.addEventListener('DOMContentLoaded', () => {
         previewName.textContent = tagNameInput.value || 'John Doe';
         previewGroup.textContent = tagGroupInput.value || 'Group 2 BSHM3-09';
         nametagPreviewCard.setAttribute('data-theme', tagTemplateSelect.value);
+
+        // Apply slider values
+        const nameSize = nameFontSlider.value;
+        const groupSize = groupFontSlider.value;
+        const nameY = nameYSlider.value;
+        const groupY = groupYSlider.value;
+
+        previewName.style.fontSize = nameSize + 'px';
+        previewName.style.top = nameY + '%';
+        previewGroup.style.fontSize = groupSize + 'px';
+        previewGroup.style.top = groupY + '%';
+
+        nameSizeVal.textContent = nameSize + 'px';
+        groupSizeVal.textContent = groupSize + 'px';
+        nameYVal.textContent = nameY + '%';
+        groupYVal.textContent = groupY + '%';
     }
 
     tagNameInput.addEventListener('input', updateLivePreview);
     tagGroupInput.addEventListener('input', updateLivePreview);
     tagTemplateSelect.addEventListener('change', updateLivePreview);
+    nameFontSlider.addEventListener('input', updateLivePreview);
+    groupFontSlider.addEventListener('input', updateLivePreview);
+    nameYSlider.addEventListener('input', updateLivePreview);
+    groupYSlider.addEventListener('input', updateLivePreview);
+
+    // Initialize preview positions on load
+    updateLivePreview();
+
+    // === DRAG SUPPORT ===
+    function makeDraggableY(el, ySlider) {
+        let isDragging = false;
+        let startMouseY = 0;
+        let startTopPercent = 0;
+
+        function getParentHeight() {
+            return el.parentElement.getBoundingClientRect().height;
+        }
+
+        function onPointerDown(e) {
+            isDragging = true;
+            startMouseY = e.clientY;
+            startTopPercent = parseFloat(ySlider.value);
+            el.style.cursor = 'grabbing';
+            e.preventDefault();
+        }
+
+        function onPointerMove(e) {
+            if (!isDragging) return;
+            const dy = e.clientY - startMouseY;
+            const parentH = getParentHeight();
+            const deltaPct = (dy / parentH) * 100;
+            let newVal = Math.round(Math.min(95, Math.max(5, startTopPercent + deltaPct)));
+            ySlider.value = newVal;
+            updateLivePreview();
+        }
+
+        function onPointerUp() {
+            if (!isDragging) return;
+            isDragging = false;
+            el.style.cursor = 'grab';
+        }
+
+        el.addEventListener('pointerdown', onPointerDown);
+        document.addEventListener('pointermove', onPointerMove);
+        document.addEventListener('pointerup', onPointerUp);
+    }
+
+    makeDraggableY(previewName, nameYSlider);
+    makeDraggableY(previewGroup, groupYSlider);
 
     // Helpers to Draw Rounded Rectangle on Canvas
     function drawCanvasRoundedRect(ctx, x, y, width, height, radius) {
@@ -392,50 +466,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.closePath();
     }
 
-    // Draw stylized leaf leaflets
-    function drawCanvasLeaflet(ctx, x, y, size, angle) {
-        ctx.save();
-        ctx.translate(x, y);
-        ctx.rotate(angle);
-        ctx.beginPath();
-        ctx.ellipse(0, 0, size, size * 0.65, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.restore();
-    }
-
-    // Draw stylized moringa leaf branch
-    function drawCanvasMoringaLeaf(ctx, x, y, size, angle, color, opacity) {
-        ctx.save();
-        ctx.translate(x, y);
-        ctx.rotate(angle);
-        ctx.globalAlpha = opacity;
-        ctx.fillStyle = color;
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 4;
-        
-        // Draw stem
-        ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.quadraticCurveTo(size * 0.3, -size * 0.15, size, 0);
-        ctx.stroke();
-        
-        // Draw pairs of leaflets
-        const pairs = 4;
-        for (let i = 1; i <= pairs; i++) {
-            const t = i / pairs;
-            const px = t * size;
-            const py = t * t * -0.15 * size;
-            const leafletSize = size * 0.16 * (1 - t * 0.3);
-            
-            drawCanvasLeaflet(ctx, px, py, leafletSize, Math.PI / 4);
-            drawCanvasLeaflet(ctx, px, py, leafletSize, -Math.PI / 4);
-        }
-        
-        // Terminal leaflet
-        drawCanvasLeaflet(ctx, size, 0, size * 0.18, 0);
-        ctx.restore();
-    }
-
     // High resolution Canvas Generator (1050x660 px for Crisp 300DPI Print)
     function generateNametagCanvas(callback) {
         const canvas = document.createElement('canvas');
@@ -446,6 +476,15 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = tagNameInput.value || 'John Doe';
         const group = tagGroupInput.value || 'Group 2 BSHM3-09';
         const template = tagTemplateSelect.value;
+
+        // Read slider values and scale to canvas coords
+        const nameFontPx = Math.round(nameFontSlider.value * 2.1); // preview px → canvas px
+        const groupFontPx = Math.round(groupFontSlider.value * 2.1);
+        const nameYPct = nameYSlider.value / 100;
+        const groupYPct = groupYSlider.value / 100;
+
+        const nameCanvasY = Math.round(nameYPct * 660);
+        const groupCanvasY = Math.round(groupYPct * 660);
 
         // Color palettes
         const themes = {
@@ -489,22 +528,26 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.lineWidth = 8;
         ctx.strokeRect(4, 4, 1042, 652);
 
-        // 3. Inner border (inset double-border effect)
+        // 3. Inner border
         ctx.strokeStyle = t.innerBorder;
         ctx.lineWidth = 2;
         ctx.strokeRect(28, 28, 994, 604);
 
-        // 4. User Name — centered
+        // 4. User Name
         ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
         ctx.fillStyle = t.text;
-        ctx.font = "bold 82px 'Playfair Display', Georgia, serif";
-        ctx.fillText(name, 525, 300);
+        ctx.font = `bold ${nameFontPx}px 'Playfair Display', Georgia, serif`;
+        ctx.fillText(name, 525, nameCanvasY);
 
-        // 5. Group pill badge — centered below name
-        const pillW = 380;
-        const pillH = 56;
+        // 5. Group pill badge
+        ctx.font = `bold ${groupFontPx}px 'Plus Jakarta Sans', system-ui, sans-serif`;
+        ctx.letterSpacing = '2px';
+        const pillTextWidth = ctx.measureText(group.toUpperCase()).width;
+        const pillW = Math.max(pillTextWidth + 60, 200);
+        const pillH = groupFontPx + 34;
         const pillX = 525 - pillW / 2;
-        const pillY = 370;
+        const pillY = groupCanvasY - pillH / 2;
 
         ctx.fillStyle = t.pillBg;
         ctx.beginPath();
@@ -518,10 +561,9 @@ document.addEventListener('DOMContentLoaded', () => {
         ctx.stroke();
 
         ctx.fillStyle = t.accent;
-        ctx.font = "bold 21px 'Plus Jakarta Sans', system-ui, sans-serif";
-        ctx.letterSpacing = "2px";
-        ctx.fillText(group.toUpperCase(), 525, pillY + 36);
+        ctx.fillText(group.toUpperCase(), 525, groupCanvasY);
 
+        ctx.textBaseline = 'alphabetic'; // reset
         callback(canvas);
     }
 

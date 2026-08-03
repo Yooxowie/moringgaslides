@@ -336,6 +336,31 @@
                             <option value="sage">Sage Leaf (Soft Sage & White)</option>
                         </select>
                     </div>
+
+                    <!-- Adjustable Controls -->
+                    <div class="adjust-section">
+                        <div class="adjust-row">
+                            <label for="name-font-size">Name Size</label>
+                            <input type="range" id="name-font-size" min="16" max="56" value="40">
+                            <span class="range-val" id="name-size-val">40px</span>
+                        </div>
+                        <div class="adjust-row">
+                            <label for="group-font-size">Group Size</label>
+                            <input type="range" id="group-font-size" min="8" max="28" value="11">
+                            <span class="range-val" id="group-size-val">11px</span>
+                        </div>
+                        <div class="adjust-row">
+                            <label for="name-y-pos">Name Y Position</label>
+                            <input type="range" id="name-y-pos" min="10" max="90" value="42">
+                            <span class="range-val" id="name-y-val">42%</span>
+                        </div>
+                        <div class="adjust-row">
+                            <label for="group-y-pos">Group Y Position</label>
+                            <input type="range" id="group-y-pos" min="30" max="95" value="72">
+                            <span class="range-val" id="group-y-val">72%</span>
+                        </div>
+                    </div>
+
                     <div class="btn-actions-grid">
                         <button class="action-btn primary-action" id="btn-print-tag">Print Nametag</button>
                         <button class="action-btn secondary-action" id="btn-png-tag">Download PNG</button>
@@ -345,18 +370,15 @@
                 <!-- Generator Preview -->
                 <div class="generator-preview-panel">
                     <div class="preview-container">
-                        <!-- Live Nametag Card (Minimalist Double-Border Layout) -->
+                        <!-- Live Nametag Card -->
                         <div class="nametag-card" id="nametag-preview-card" data-theme="forest">
                             <div class="nametag-inner-border">
-                                <div class="nametag-main">
-                                    <h2 class="nametag-user-name" id="preview-name">John Doe</h2>
-                                </div>
-                                <div class="nametag-footer">
-                                    <span class="nametag-group-badge" id="preview-group">Group 2 BSHM3-09</span>
-                                </div>
+                                <h2 class="nametag-user-name nametag-draggable" id="preview-name">John Doe</h2>
+                                <span class="nametag-group-badge nametag-draggable" id="preview-group">Group 2 BSHM3-09</span>
                             </div>
                         </div>
                     </div>
+                    <p class="drag-hint">💡 Drag elements to reposition</p>
                 </div>
             </div>
         </div>
