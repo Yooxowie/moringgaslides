@@ -44,6 +44,12 @@
                     <span class="toc-title">Why Malunggay Stands Out</span>
                 </li>
             </ul>
+            <div class="sidebar-footer">
+                <button class="nametag-trigger-btn" id="open-nametag-btn">
+                    <span class="btn-icon">🪪</span>
+                    <span class="btn-text">Generate Nametag</span>
+                </button>
+            </div>
         </nav>
 
         <!-- Slides Wrapper -->
@@ -303,6 +309,76 @@
         <div class="toast-notification" id="status-toast" aria-live="polite"></div>
 
     </main>
+
+    <!-- Nametag Generator Modal -->
+    <div class="modal-overlay" id="nametag-modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modal-title">🪪 Print-Ready Nametag Generator</h3>
+                <button class="icon-btn close-btn" id="close-nametag-btn" aria-label="Close generator">&times;</button>
+            </div>
+            <div class="modal-body grid-split-modal">
+                <!-- Generator Controls -->
+                <div class="generator-controls">
+                    <div class="form-group">
+                        <label for="tag-name">Full Name</label>
+                        <input type="text" id="tag-name" placeholder="Enter name" value="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label for="tag-role">Role / Designation</label>
+                        <input type="text" id="tag-role" placeholder="Presenter, Lead Researcher, etc." value="Presenter">
+                    </div>
+                    <div class="form-group">
+                        <label for="tag-group">Group / Affiliation</label>
+                        <input type="text" id="tag-group" placeholder="e.g. Group 2 BSHM3-09" value="Group 2 BSHM3-09">
+                    </div>
+                    <div class="form-group">
+                        <label for="tag-template">Choose Template</label>
+                        <select id="tag-template">
+                            <option value="forest">Forest Sage (Dark Green & Gold)</option>
+                            <option value="cream">Warm Meadow (Cream & Green)</option>
+                            <option value="sage">Sage Leaf (Soft Sage & White)</option>
+                        </select>
+                    </div>
+                    <div class="btn-actions-grid">
+                        <button class="action-btn primary-action" id="btn-print-tag">Print Nametag</button>
+                        <button class="action-btn secondary-action" id="btn-png-tag">Download PNG</button>
+                        <button class="action-btn secondary-action" id="btn-jpg-tag">Download JPG</button>
+                    </div>
+                </div>
+                <!-- Generator Preview -->
+                <div class="generator-preview-panel">
+                    <div class="preview-container">
+                        <!-- Live Nametag Card -->
+                        <div class="nametag-card" id="nametag-preview-card" data-theme="forest">
+                            <div class="badge-slot"></div>
+                            <div class="nametag-inner">
+                                <div class="nametag-header">
+                                    <span class="nametag-presentation-badge">TITLE PROPOSAL</span>
+                                    <h4 class="nametag-presentation-title">Assessing Malunggay Leaf Extract as a Cooking Oil Replacement</h4>
+                                </div>
+                                <div class="nametag-divider"></div>
+                                <div class="nametag-main">
+                                    <h2 class="nametag-user-name" id="preview-name">John Doe</h2>
+                                    <p class="nametag-user-role" id="preview-role">Presenter</p>
+                                </div>
+                                <div class="nametag-footer">
+                                    <span class="nametag-group-text" id="preview-group">Group 2 BSHM3-09</span>
+                                    <span class="nametag-date-text">August 2026</span>
+                                </div>
+                                <!-- Watermark Leaf SVGs for decoration -->
+                                <div class="nametag-watermark watermark-left">🌿</div>
+                                <div class="nametag-watermark watermark-right">🌿</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hidden Print Area -->
+    <div id="nametag-print-area"></div>
 
     <script src="script.js"></script>
 </body>
