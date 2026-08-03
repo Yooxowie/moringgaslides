@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moringa Oil Presentation - Malunggay Leaf Extract as Cooking Oil Replacement</title>
+    <meta name="description" content="An interactive presentation slide deck evaluating Malunggay (Moringa) Leaf Extract as a healthy, sustainable, and local replacement for conventional cooking oil.">
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts for premium typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+</head>
+<body class="theme-forest">
+    <!-- Main Presentation Container -->
+    <main class="presentation-container" id="presentation-root" role="main">
+        
+        <!-- Top Progress Bar -->
+        <div class="progress-bar-container" id="progress-bar-container">
+            <div class="progress-bar" id="progress-indicator" style="width: 25%;"></div>
+        </div>
+
+        <!-- Sidebar / Table of Contents Toggle Menu -->
+        <nav class="toc-sidebar" id="navigation-sidebar" aria-label="Table of Contents">
+            <div class="sidebar-header">
+                <h3>Slide Directory</h3>
+                <button class="icon-btn close-btn" id="close-sidebar-btn" aria-label="Close directory">&times;</button>
+            </div>
+            <ul class="toc-list" id="toc-slide-list">
+                <li class="toc-item active" data-slide="0">
+                    <span class="toc-num">01</span>
+                    <span class="toc-title">Title Slide</span>
+                </li>
+                <li class="toc-item" data-slide="1">
+                    <span class="toc-num">02</span>
+                    <span class="toc-title">Problem Statement</span>
+                </li>
+                <li class="toc-item" data-slide="2">
+                    <span class="toc-num">03</span>
+                    <span class="toc-title">Proposed Solution</span>
+                </li>
+                <li class="toc-item" data-slide="3">
+                    <span class="toc-num">04</span>
+                    <span class="toc-title">Why Malunggay Stands Out</span>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Slides Wrapper -->
+        <div class="slides-wrapper" id="slides-slider">
+            
+            <!-- SLIDE 1: TITLE SLIDE -->
+            <section class="slide active-slide" id="slide-0" data-notes="Welcome the audience. Introduce the research topic focusing on 'Moringa oleifera' (Malunggay) leaves, highly abundant in the Philippines. Explain that this study evaluates the feasibility and nutritional benefits of infusing Malunggay leaf extracts into oil as a healthier, sustainable alternative to conventional cooking oils.">
+                <div class="slide-content grid-split">
+                    <div class="slide-text">
+                        <span class="badge" id="slide1-badge">Title Proposal</span>
+                        <h1 class="slide-title main-title" id="main-presentation-title">
+                            Assessing Malunggay Leaf Extract as a Viable Replacement for Conventional Cooking Oil
+                        </h1>
+                        <div class="slide1-footer">
+                            <span class="footer-meta">Group2 BSHM3-09</span>
+                            <span class="footer-meta">August 2026</span>
+                        </div>
+                    </div>
+                    <div class="slide-visual">
+                        <div class="image-wrapper curved-frame hero-shadow">
+                            <img src="assets/moringa_tree.jpg" alt="A beautiful, healthy moringa (malunggay) tree in a tropical garden" class="slide-image fade-in-image">
+                            <div class="floating-badge">
+                                <span class="badge-icon">🌿</span>
+                                <span class="badge-text">100% Organic & Local</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 2: PROBLEM STATEMENT -->
+            <section class="slide" id="slide-1" data-notes="Discuss the challenges of our current dietary oil habits. Explain that standard oils are high in saturated/trans fats, contributing to chronic illnesses. Simultaneously, point out that while Malunggay is widely available and extremely nutrient-rich, it remains underutilized commercially. This creates a market gap for a healthier, local, and eco-friendly oil option.">
+                <div class="slide-content grid-split">
+                    <div class="slide-text">
+                        <span class="badge" id="slide2-badge">The Problem</span>
+                        <h2 class="slide-title" id="problem-title">The Challenge with Conventional Cooking Oil</h2>
+                        
+                        <div class="cards-list">
+                            <div class="problem-card card-animate" style="--card-index: 1;">
+                                <div class="card-icon">⚠️</div>
+                                <div class="card-body">
+                                    <h3>High Unhealthy Fats</h3>
+                                    <p>Conventional cooking oils are often refined, high in saturated fats, and contain trans fats that lead to cardiovascular issues.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="problem-card card-animate" style="--card-index: 2;">
+                                <div class="card-icon">📈</div>
+                                <div class="card-body">
+                                    <h3>Rising Market Demand</h3>
+                                    <p>Consumers are actively searching for healthier, sustainable, and organic cooking alternatives, but choices remain limited or imported.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="problem-card card-animate" style="--card-index: 3;">
+                                <div class="card-icon">🌱</div>
+                                <div class="card-body">
+                                    <h3>Underutilized Superfood</h3>
+                                    <p>Malunggay (Moringa) grows abundantly locally and is packed with dense nutrients, yet it remains largely neglected in commercial cooking oil sectors.</p>
+                                </div>
+                            </div>
+
+                            <div class="problem-card card-animate" style="--card-index: 4;">
+                                <div class="card-icon">🍽️</div>
+                                <div class="card-body">
+                                    <h3>Traditional Barriers</h3>
+                                    <p>Public awareness of Malunggay is restricted to home-cooked soups and traditional dishes, ignoring its versatile potential as an oil extract.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-visual">
+                        <div class="image-wrapper curved-frame hero-shadow">
+                            <img src="assets/moringa_leaves.jpg" alt="A close-up shot of fresh green moringa leaflets with morning dew drops" class="slide-image">
+                            <div class="infobox-overlay">
+                                <h4>Nutrient Deficit in Refining</h4>
+                                <p>Standard oil refinement strips away natural antioxidants, whereas Moringa leaves are rich in active, protective compounds.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 3: PROPOSED SOLUTION -->
+            <section class="slide" id="slide-2" data-notes="Introduce our proposed solution. We develop an infusion/extraction technique that is low-cost and keeps nutrients intact. Moringa oil provides substantial vitamins A, C, E, and antioxidants. It acts as an anti-inflammatory and antimicrobial agent. Because Moringa is local, this oil is highly cost-effective for families and restaurants.">
+                <div class="slide-content grid-split reverse-split">
+                    <div class="slide-visual">
+                        <div class="image-wrapper curved-frame hero-shadow">
+                            <img src="assets/moringa_raw_product.jpg" alt="Fresh green moringa leaves and raw seed pods (drumsticks) ready for extraction" class="slide-image">
+                            <div class="floating-badge top-left">
+                                <span class="badge-icon">🔬</span>
+                                <span class="badge-text">Safe Maceration Method</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="slide-text">
+                        <span class="badge" id="slide3-badge">The Solution</span>
+                        <h2 class="slide-title" id="solution-title">Malunggay Leaf Extract as Alternative Cooking Oil</h2>
+                        
+                        <div class="solution-grid">
+                            <div class="solution-item card-animate" style="--card-index: 1;">
+                                <div class="sol-num">01</div>
+                                <h3>Safe & Cost-Effective Extraction</h3>
+                                <p>Developed via a natural infusion process, capturing the active elements of Moringa leaves without harsh chemical solvents.</p>
+                            </div>
+                            
+                            <div class="solution-item card-animate" style="--card-index: 2;">
+                                <div class="sol-num">02</div>
+                                <h3>Vitamin & Mineral Powerhouse</h3>
+                                <p>Naturally rich in Vitamins A, C, E, Calcium, Potassium, and essential fatty acids that support a healthy immune system.</p>
+                            </div>
+
+                            <div class="solution-item card-animate" style="--card-index: 3;">
+                                <div class="sol-num">03</div>
+                                <h3>Active Health Benefits</h3>
+                                <p>Retains robust anti-inflammatory, antimicrobial, and antioxidant properties, improving health outcomes with daily use.</p>
+                            </div>
+
+                            <div class="solution-item card-animate" style="--card-index: 4;">
+                                <div class="sol-num">04</div>
+                                <h3>Affordable & Locally Sourced</h3>
+                                <p>Provides a budget-friendly, natural oil alternative tailored for household kitchens and commercial hospitality businesses.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SLIDE 4: DIFFERENTIATION -->
+            <section class="slide" id="slide-3" data-notes="Summarize why Malunggay-infused oil stands out compared to both standard vegetable oils and premium options like olive oil. Standard oils are unhealthy; Moringa offers nutrient density. Olive/Coconut oils are expensive and imported; Moringa is native, highly affordable, and supports local Filipino agricultural economies directly.">
+                <div class="slide-content grid-split-40-60">
+                    <div class="diff-left-intro">
+                        <span class="badge" id="slide4-badge">DIFFERENTIATION</span>
+                        <h2 class="slide-title" id="diff-title">Why Malunggay Oil Stands Out</h2>
+                        <p class="diff-intro-text">
+                            Malunggay-infused oil bridges the gap between premium health oils and affordable everyday cooking oils.
+                        </p>
+                        <div class="impact-card">
+                            <h4>🌱 Local Economic Impact</h4>
+                            <p>By shifting to indigenous Moringa oil, we strengthen domestic farming, reduce carbon footprints, and empower rural agricultural cooperatives.</p>
+                        </div>
+                    </div>
+                    <div class="diff-right-tables">
+                        <!-- Compare to Conventional -->
+                        <div class="comparison-panel card-animate" style="--card-index: 1;">
+                            <div class="panel-header">
+                                <span class="vs-label">VS</span>
+                                <h3>Conventional Cooking Oils</h3>
+                            </div>
+                            <ul class="comparison-points">
+                                <li>
+                                    <span class="point-icon check">✓</span>
+                                    <div>
+                                        <strong>Superior Nutrient Density:</strong> Significantly lower unhealthy fat ratios while injecting vital micronutrients directly into meals.
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="point-icon check">✓</span>
+                                    <div>
+                                        <strong>Oxidative Stability:</strong> Natural antioxidants present in the extract help slow down oil oxidation, extending frying shelf life.
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Compare to Premium Alternatives -->
+                        <div class="comparison-panel card-animate" style="--card-index: 2;">
+                            <div class="panel-header">
+                                <span class="vs-label">VS</span>
+                                <h3>Premium Alternatives (Olive & Coconut Oil)</h3>
+                            </div>
+                            <ul class="comparison-points">
+                                <li>
+                                    <span class="point-icon check">✓</span>
+                                    <div>
+                                        <strong>Drastically Lower Cost:</strong> Grown locally in the backyard of most households, minimizing processing and transportation overheads.
+                                    </div>
+                                </li>
+                                <li>
+                                    <span class="point-icon check">✓</span>
+                                    <div>
+                                        <strong>Socio-Agricultural Support:</strong> Zero dependency on imports (unlike olive oil). Direct support to local farmers and sustainable community farming.
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Floating Controls & Interactive Panel -->
+        <div class="controls-overlay" id="slides-controls">
+            <!-- Left Side: Directory and Notes buttons -->
+            <div class="control-group">
+                <button class="control-btn" id="toggle-sidebar-btn" aria-label="Toggle Slide Directory" title="Slide Directory">
+                    <span class="btn-icon">📁</span>
+                    <span class="btn-text">Directory</span>
+                </button>
+                <button class="control-btn" id="toggle-notes-btn" aria-label="Toggle Presenter Notes" title="Presenter Notes">
+                    <span class="btn-icon">📝</span>
+                    <span class="btn-text">Speaker Notes</span>
+                </button>
+            </div>
+
+            <!-- Center Side: Prev, Play/Pause, Next controls -->
+            <div class="control-group navigation-group">
+                <button class="nav-arrow" id="prev-slide-btn" aria-label="Previous slide" title="Previous Slide (Left Arrow)">◀</button>
+                <button class="play-btn" id="play-slideshow-btn" aria-label="Play Slideshow" title="Toggle Auto-Play Presentation">
+                    <span id="play-icon">▶</span>
+                </button>
+                <button class="nav-arrow" id="next-slide-btn" aria-label="Next slide" title="Next Slide (Right Arrow/Space)">▶</button>
+                <span class="slide-counter" id="slide-count-indicator">1 / 4</span>
+            </div>
+
+            <!-- Right Side: Theme Switcher & Fullscreen -->
+            <div class="control-group right-group">
+                <div class="theme-selector-container">
+                    <button class="theme-selector-btn" id="theme-menu-btn" title="Choose Presentation Theme">
+                        <span class="theme-dot" id="active-theme-dot"></span>
+                        <span class="btn-text">Theme</span>
+                    </button>
+                    <div class="theme-dropdown" id="theme-dropdown-menu">
+                        <button class="theme-opt active-opt" data-theme="forest">
+                            <span class="color-preview forest-preview"></span> Forest Sage
+                        </button>
+                        <button class="theme-opt" data-theme="cream">
+                            <span class="color-preview cream-preview"></span> Warm Meadow
+                        </button>
+                        <button class="theme-opt" data-theme="minimal">
+                            <span class="color-preview minimal-preview"></span> Clean Slate
+                        </button>
+                        <button class="theme-opt" data-theme="dark">
+                            <span class="color-preview dark-preview"></span> Obsidian Night
+                        </button>
+                    </div>
+                </div>
+                <button class="control-btn" id="toggle-fullscreen-btn" aria-label="Fullscreen mode" title="Fullscreen Mode (F)">
+                    <span class="btn-icon">⛶</span>
+                    <span class="btn-text">Fullscreen</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Presenter Notes Bottom Panel -->
+        <aside class="presenter-notes-panel" id="notes-display-panel" aria-label="Presenter Notes Panel">
+            <div class="notes-header">
+                <h3>📝 Presenter Notes</h3>
+                <button class="icon-btn close-btn" id="close-notes-btn" aria-label="Close notes">&times;</button>
+            </div>
+            <div class="notes-content-body" id="notes-content-text">
+                Welcome the audience. Introduce the research topic focusing on 'Moringa oleifera' (Malunggay) leaves, highly abundant in the Philippines. Explain that this study evaluates the feasibility and nutritional benefits of infusing Malunggay leaf extracts into oil as a healthier, sustainable alternative to conventional cooking oils.
+            </div>
+        </aside>
+
+        <!-- Toast Notifications (e.g. Autoplay status) -->
+        <div class="toast-notification" id="status-toast" aria-live="polite"></div>
+
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
