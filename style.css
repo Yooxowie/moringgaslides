@@ -1335,206 +1335,121 @@ body.theme-cream .generator-preview-panel {
 .nametag-card {
     width: 340px;
     height: 215px;
-    border-radius: 14px;
-    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
     position: relative;
     overflow: hidden;
     display: flex;
-    flex-direction: row;
-    padding: 0;
+    align-items: center;
+    justify-content: center;
+    padding: 0.75rem;
     transition: all 0.3s ease;
 }
 
-/* Lanyard Slot / Badge Slot in Side Strip */
-.nametag-side-strip {
-    width: 55px;
+.nametag-inner-border {
+    width: 100%;
     height: 100%;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: 1.25rem 0 1rem;
-    position: relative;
-    z-index: 10;
-    border-right: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.nametag-side-strip .badge-slot {
-    position: relative;
-    top: 0;
-    left: 0;
-    transform: none;
-    width: 30px;
-    height: 6px;
-    border-radius: 4px;
-}
-
-.side-strip-text {
-    writing-mode: vertical-rl;
-    text-transform: uppercase;
-    font-size: 0.62rem;
-    font-weight: 800;
-    letter-spacing: 0.4em;
-    transform: rotate(180deg);
-}
-
-.side-strip-icon {
-    font-size: 1rem;
-}
-
-/* Right Main Area styling */
-.nametag-main-area {
-    flex: 1;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
-    padding: 1.5rem 1.8rem;
+    gap: 0.5rem;
     position: relative;
-    z-index: 5;
 }
 
 .nametag-main {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    margin-bottom: 0.6rem;
-    gap: 0.2rem;
-    z-index: 10;
-    position: relative;
+    align-items: center;
+    gap: 0.25rem;
 }
 
 .nametag-user-name {
     font-family: var(--font-serif);
-    font-size: 2.1rem;
+    font-size: 2rem;
     font-weight: 800;
     letter-spacing: -0.01em;
     line-height: 1.1;
-    text-align: left;
+    text-align: center;
 }
 
 .nametag-badge-divider {
-    width: 50px;
-    height: 4px;
+    width: 40px;
+    height: 3px;
     border-radius: 2px;
-    margin-top: 0.3rem;
+    margin-top: 0.15rem;
 }
 
 .nametag-footer {
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     width: 100%;
-    z-index: 10;
-    position: relative;
 }
 
 .nametag-group-badge {
-    padding: 0.35rem 0.9rem;
+    padding: 0.3rem 0.85rem;
     border-radius: 30px;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
 }
 
-.nametag-svg-leaf {
-    position: absolute;
-    width: 130px;
-    height: auto;
-    pointer-events: none;
-    z-index: 1;
-    transition: color 0.3s ease, opacity 0.3s ease;
-}
-
-.leaf-right {
-    bottom: -20px;
-    right: -20px;
-    transform: rotate(-35deg);
-}
-
 /* Template Themes */
-/* 1. Forest Sage Theme */
+/* 1. Forest Sage — Dark green with gold accents */
 .nametag-card[data-theme="forest"] {
     background-color: #0b1a13;
-    border: 3px solid #d4af37;
+    border: 2px solid #d4af37;
     color: #f6f8f5;
 }
-.nametag-card[data-theme="forest"] .nametag-side-strip {
-    background-color: #d4af37;
-    color: #0b1a13;
-    border-right-color: rgba(11, 26, 19, 0.15);
-}
-.nametag-card[data-theme="forest"] .nametag-side-strip .badge-slot {
-    background: rgba(11, 26, 19, 0.15);
+.nametag-card[data-theme="forest"] .nametag-inner-border {
+    border: 1px solid rgba(212, 175, 55, 0.2);
 }
 .nametag-card[data-theme="forest"] .nametag-badge-divider {
     background-color: #d4af37;
 }
 .nametag-card[data-theme="forest"] .nametag-group-badge {
-    background: rgba(212, 175, 55, 0.08);
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.25);
     color: #d4af37;
-}
-.nametag-card[data-theme="forest"] .nametag-svg-leaf {
-    color: #d4af37;
-    opacity: 0.08;
 }
 
-/* 2. Warm Meadow Theme */
+/* 2. Warm Meadow — Cream with deep green accents */
 .nametag-card[data-theme="cream"] {
     background-color: #faf8f5;
-    border: 3px solid #1b3327;
+    border: 2px solid #1b3327;
     color: #1b3327;
     box-shadow: 0 15px 35px rgba(27, 51, 39, 0.1);
 }
-.nametag-card[data-theme="cream"] .nametag-side-strip {
-    background-color: #1b3327;
-    color: #faf8f5;
-    border-right-color: rgba(250, 248, 245, 0.15);
-}
-.nametag-card[data-theme="cream"] .nametag-side-strip .badge-slot {
-    background: rgba(250, 248, 245, 0.2);
+.nametag-card[data-theme="cream"] .nametag-inner-border {
+    border: 1px solid rgba(27, 51, 39, 0.12);
 }
 .nametag-card[data-theme="cream"] .nametag-badge-divider {
     background-color: #1b3327;
 }
 .nametag-card[data-theme="cream"] .nametag-group-badge {
-    background: rgba(27, 51, 39, 0.05);
-    border: 1px solid rgba(27, 51, 39, 0.12);
+    background: rgba(27, 51, 39, 0.06);
+    border: 1px solid rgba(27, 51, 39, 0.15);
     color: #1b3327;
-}
-.nametag-card[data-theme="cream"] .nametag-svg-leaf {
-    color: #1b3327;
-    opacity: 0.06;
 }
 
-/* 3. Sage Leaf Theme */
+/* 3. Sage Leaf — Muted sage with white accents */
 .nametag-card[data-theme="sage"] {
     background-color: #8fa89b;
-    border: 3px solid #ffffff;
+    border: 2px solid #ffffff;
     color: #ffffff;
 }
-.nametag-card[data-theme="sage"] .nametag-side-strip {
-    background-color: #ffffff;
-    color: #8fa89b;
-    border-right-color: rgba(143, 168, 155, 0.2);
-}
-.nametag-card[data-theme="sage"] .nametag-side-strip .badge-slot {
-    background: rgba(143, 168, 155, 0.2);
+.nametag-card[data-theme="sage"] .nametag-inner-border {
+    border: 1px solid rgba(255, 255, 255, 0.25);
 }
 .nametag-card[data-theme="sage"] .nametag-badge-divider {
     background-color: #ffffff;
 }
 .nametag-card[data-theme="sage"] .nametag-group-badge {
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: #ffffff;
-}
-.nametag-card[data-theme="sage"] .nametag-svg-leaf {
-    color: #ffffff;
-    opacity: 0.15;
 }
 
 /* Responsive adjustments for Modal Grid */
